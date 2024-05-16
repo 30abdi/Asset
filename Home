@@ -1,1 +1,117 @@
-Home
+
+import React,{useState} from "react";
+import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
+import { Drawer } from 'react-native-drawer-layout';
+import DrawerSO from "./MenuDrawerSO";
+import { responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
+
+export default function GrafikHome({ navigation }) {
+    const [open, setOpen] = useState(false);
+    const [count, setCount] = useState(0);
+    const onPress = () => setCount(prevCount => prevCount + 1);
+
+    return (
+        <Drawer
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        drawerPosition="right"
+        renderDrawerContent={() => {
+            return <DrawerSO/>;
+        }}
+        drawerStyle={{width: responsiveWidth(85)}}
+    >
+        <View style={styles.container}>
+            <Image 
+            style={styles.imageHeadLogo}
+            source={require("../assets/sohead.png")}
+            />
+        <View style={styles.countContainer}>
+                {/* <Text> Testing: {count}</Text> */}
+            </View>
+            <Image 
+            style={styles.imageGrafik}
+            source={require("../assets/grafik.png")}
+            />
+        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('StockOpname')}>
+            <Image 
+                style={styles.imageButton}
+                source={require("../assets/stop.png")}
+            />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.barbutton} onPress={() => setOpen((prevOpen) => !prevOpen)}>
+                    <Image 
+                        style={styles.imagebar}
+                        source={require("../assets/bar.png")}
+                    />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.backbutton} onPress={()=>navigation.navigate('StockOpname')}>
+                <Image 
+                    style={styles.imageback} 
+                    source={require("../assets/back.png")}
+                    />
+                </TouchableOpacity>
+        </View>
+    </Drawer>
+    )}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor: '#77B9E9',
+    },
+    imageHeadLogo: {
+        height: responsiveHeight(20),
+        width: responsiveWidth(100),
+    },
+    countContainer: {
+        alignItems: 'center',
+    },
+    imageGrafik: {
+        height: responsiveHeight(13),
+        width: responsiveWidth(100),
+        backgroundColor: '#77B9E9',
+    },
+    imageButton: {
+        height: responsiveHeight(30),
+        width: responsiveWidth(50),
+    },
+    button: {
+        position: 'absolute',
+        height: responsiveHeight(30),
+        width: responsiveWidth(50),
+        alignItems: 'center',
+        marginTop: responsiveHeight(40),
+    },   
+    barbutton: {
+        height: responsiveHeight(7),
+        width: responsiveWidth(8),
+        position: 'absolute',
+        right: responsiveWidth(1),
+        top: responsiveHeight(3),
+    },
+    imagebar: {
+        height: responsiveHeight(7),
+        width: responsiveWidth(8),
+        position: 'absolute',
+        right: responsiveWidth(1),
+        top: responsiveHeight(3),
+    },
+    imageback: {
+        height: responsiveHeight(7),
+        width: responsiveWidth(11),
+        position: 'absolute',
+        left: responsiveWidth(1),
+        top: responsiveHeight(3),
+    },
+    backbutton: {
+        height: responsiveHeight(7),
+        width: responsiveWidth(11),
+        position: 'absolute',
+        left: responsiveWidth(1),
+        top: responsiveHeight(3),
+    },
+})
+
